@@ -49,6 +49,25 @@
   
   
   <entry>
+    <title>my-first-blog</title>
+    <link href="/2020/06/16/my-first-blog%20-%20%E5%89%AF%E6%9C%AC/"/>
+    <url>/2020/06/16/my-first-blog%20-%20%E5%89%AF%E6%9C%AC/</url>
+    
+    <content type="html"><![CDATA[<h1 id="4月11日"><a href="#4月11日" class="headerlink" title="4月11日"></a>4月11日</h1><h2 id="一、-概述"><a href="#一、-概述" class="headerlink" title="一、 概述"></a>一、 概述</h2><ol><li><p>JavaScript是运行在客户端的脚本语言。</p></li><li><p>HTML/CSS——标记语言，描述类语言，JavaScript——脚本语言，编程语言。</p></li><li><p>HTML 定义了网页的内容，CSS描述了网页的布局，JavaScript控制网页的行为。</p></li><li><p>书写方法：行内式、内嵌式、引用式。</p><a id="more"></a></li><li><p>输入输出控制语句：</p><blockquote><p>alert()弹出警示框</p><p>console.log()控制台输出</p><p>prompt() 弹出输入框</p></blockquote></li><li><p>变量：</p><blockquote><p>使用 var 声明的变量可以是字符串型，数字型，布尔型。</p><p>只声明不赋值，undefined</p><p>不       不       ，报错</p><p>不       只       ，√是全局变量</p></blockquote></li></ol><h2 id="二、数据类型"><a href="#二、数据类型" class="headerlink" title="二、数据类型"></a>二、数据类型</h2><ol><li><p>JavaScript是弱类型语言，或者说动态语言。</p></li><li><p>不用提前声明变量类型，程序会自动确定。</p></li><li><p>对同一个变量，其数据类型是可变的，例</p><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> x = <span class="hljs-number">10</span>;x = <span class="hljs-string">'panda'</span>;</code></pre></li><li><p>数据类型的分类：</p><ul><li><p>简单数据类型：</p><blockquote><p>Number, String, Boolean, Undefined, Null.</p></blockquote></li><li><p>复杂</p><blockquote><p>Object</p></blockquote></li></ul></li><li></li></ol>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>first blog</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
     <link href="/2020/06/16/hello-world/"/>
     <url>/2020/06/16/hello-world/</url>
