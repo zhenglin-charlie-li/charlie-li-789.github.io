@@ -17,7 +17,7 @@
   <meta name="description" content="熊儿老猫的博客">
   <meta name="author" content="Zhenglin Li">
   <meta name="keywords" content="">
-  <title>my-first-blog - 熊儿老猫的博客</title>
+  <title>微信小程序黑马优购（一） - 熊儿老猫的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -152,8 +152,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-06-16 18:00">
-      June 16, 2020 pm
+    <time datetime="2020-06-25 19:53">
+      June 25, 2020 pm
     </time>
   </div>
 
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      36 字
+      713 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      9
        分钟
     </span>
   
@@ -213,20 +213,181 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：3 days ago
+                  本文最后更新于：9 minutes ago
                 
               </p>
             
             <article class="markdown-body">
-              <h1 id="my-first-Blog"><a href="#my-first-Blog" class="headerlink" title="my first Blog"></a>my first Blog</h1><p>各位好，欢迎来到我的Blog。</p>
-<p>本博客采用hexo框架，GitHub托管，fulid主题。</p>
-<p>这是我的第一篇博客。</p>
+              <p>本篇博客将实时更新我学习使用微信小程序搭建范例黑马优购的过程。</p>
+<p>教程地址：<a href="https://www.bilibili.com/video/BV1nE41117BQ?p=47" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1nE41117BQ?p=47</a></p>
+<p>参考文档：<a href="https://www.showdoc.cc/128719739414963" target="_blank" rel="noopener">https://www.showdoc.cc/128719739414963</a></p>
+<h2 id="一、-新建小程序项目"><a href="#一、-新建小程序项目" class="headerlink" title="一、 新建小程序项目"></a>一、 新建小程序项目</h2><p>打开微信开发者工具，新建小程序项目，然后执行如下操作：</p>
+<ol>
+<li><p>app.json中删除”pages/logs/logs”</p>
+</li>
+<li><p>app.json中的window字段改动如下：<code>&quot;navigationBarTitleText&quot;: &quot;黑马优购&quot;</code></p>
+</li>
+<li><p>pages中logs’文件夹删除</p>
+</li>
+<li><p>app.wxss中删除全部内容</p>
+</li>
+<li><p>app.js中删除全部代码，并在vscode中输入wx-app，即可自动补全所需必要代码，再删除globleData</p>
+</li>
+<li><p>pages中index.wxml, index.wxss删除全部语句, index.js中保留必要语句，同上在vscode中输入wx-page</p>
+</li>
+<li><p>pages/index/index.json中，新增如下：<code>&quot;navigationBarTitleText&quot;: &quot;优购首页&quot;</code></p>
+</li>
+<li><p>unils文件夹删除</p>
+<p>至此，目录结构已无冗余，接下来我们新增项目必要的文件夹和文件</p>
+</li>
+</ol>
+<p>##　二、 搭建目录结构</p>
+<p>把目录结构改为如下图所示：</p>
+<p><img src="https://i.loli.net/2020/06/28/49GKD6VP7lmRfEo.png" srcset="/img/loading.gif" alt="image-20200625205252095"></p>
+<p>各个目录的作用如下：</p>
+<ol>
+<li>style： 存放公共样式</li>
+<li>components： 存放组件</li>
+<li>lib： 存放第三方库</li>
+<li>untils： 自己的帮助库</li>
+<li>request： 自己的借口帮助库</li>
+</ol>
+<h2 id="三、-搭建项目的页面"><a href="#三、-搭建项目的页面" class="headerlink" title="三、 搭建项目的页面"></a>三、 搭建项目的页面</h2><p><img src="https://i.loli.net/2020/06/28/SZEYAydNDWfLqnK.png" srcset="/img/loading.gif" alt="image-20200625210001721"></p>
+<p>在app.json中，修改pages字段，如下</p>
+<pre><code class="hljs n1ql">"pages": [ "pages/<span class="hljs-keyword">index</span>/<span class="hljs-keyword">index</span><span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/category/<span class="hljs-keyword">index</span><span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/goods_list/<span class="hljs-keyword">index</span> <span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/goods_detail/<span class="hljs-keyword">index</span> <span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/cart/<span class="hljs-keyword">index</span><span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/collect/<span class="hljs-keyword">index</span><span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/<span class="hljs-keyword">order</span>/<span class="hljs-keyword">index</span><span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/search/<span class="hljs-keyword">index</span><span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/<span class="hljs-keyword">user</span>/<span class="hljs-keyword">index</span><span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/feedback/<span class="hljs-keyword">index</span><span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/login/<span class="hljs-keyword">index</span><span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/auth/<span class="hljs-keyword">index</span><span class="hljs-string">",</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> "</span>pages/pay/<span class="hljs-keyword">index</span><span class="hljs-string">"</span>
+<span class="hljs-string"></span>
+<span class="hljs-string"> ],</span></code></pre>
+
+<h2 id="四、-引入字体图标"><a href="#四、-引入字体图标" class="headerlink" title="四、 引入字体图标"></a>四、 引入字体图标</h2><ol>
+<li><p>打开阿里巴巴字体图标库，地址<a href="https://www.iconfont.cn/，选择图标后加入购物车。![image-20200625212648119](https://i.loli.net/2020/06/28/WEayt6IYfjlrzQD.png)" target="_blank" rel="noopener">https://www.iconfont.cn/，选择图标后加入购物车。![image-20200625212648119](https://i.loli.net/2020/06/28/WEayt6IYfjlrzQD.png)</a></p>
+</li>
+<li><p>复制下图中链接在浏览器中打开，页面打开后复制页面内所有的内容。</p>
+</li>
+<li><p>在style中新建iconfont.wxss,粘贴刚才复制的全部内容。</p>
+</li>
+<li><p>在app.wxss中导入字体图标，app.wxss加入如下代码<code>@import &quot;./styles/iconfont.wxss&quot;;</code></p>
+</li>
+<li><p>用法测试：在pages/index/index.wxml中输入如下代码</p>
+<pre><code class="hljs pgsql">&lt;<span class="hljs-keyword">view</span>&gt;首页	
+	&lt;<span class="hljs-type">text</span> <span class="hljs-keyword">class</span>="iconfont incon-shoucang1"&gt;&lt;/<span class="hljs-type">text</span>&gt;
+&lt;/<span class="hljs-keyword">view</span>&gt;</code></pre>
+<pre><code class="hljs autohotkey">
+## 五、 搭建项目tabber结构
+
+<span class="hljs-number">1</span>. 在app.json的window字段同层级下新增如下代码：
+
+   ``` 
+   <span class="hljs-string">"tabBar"</span>: &#123;
+       <span class="hljs-string">"color"</span>: <span class="hljs-string">"#999"</span>,
+       <span class="hljs-string">"selectedColor"</span>: <span class="hljs-string">"#ff2d4a"</span>,
+       <span class="hljs-string">"backgroundColor"</span>: <span class="hljs-string">"#fafafa"</span>,
+       <span class="hljs-string">"position"</span>: <span class="hljs-string">"bottom"</span>,
+       <span class="hljs-string">"borderStyle"</span>: <span class="hljs-string">"black"</span>,
+       <span class="hljs-string">"list"</span>: [
+         &#123;
+           <span class="hljs-string">"pagePath"</span>: <span class="hljs-string">"pages/index/index"</span>,
+           <span class="hljs-string">"text"</span>: <span class="hljs-string">"首页"</span>,
+           <span class="hljs-string">"iconPath"</span>: <span class="hljs-string">"icons/home.png"</span>,
+           <span class="hljs-string">"selectedIconPath"</span>: <span class="hljs-string">"icons/home1.png"</span>
+         &#125;,
+         &#123;
+           <span class="hljs-string">"pagePath"</span>: <span class="hljs-string">"pages/category/index"</span>,
+           <span class="hljs-string">"text"</span>: <span class="hljs-string">"分类"</span>,
+           <span class="hljs-string">"iconPath"</span>: <span class="hljs-string">"icons/cart.png"</span>,
+           <span class="hljs-string">"selectedIconPath"</span>: <span class="hljs-string">"icons/cart1.png"</span>
+         &#125;,
+         &#123;
+           <span class="hljs-string">"pagePath"</span>: <span class="hljs-string">"pages/cart/index"</span>,
+           <span class="hljs-string">"text"</span>: <span class="hljs-string">"购物车"</span>,
+           <span class="hljs-string">"iconPath"</span>: <span class="hljs-string">"icons/category.png"</span>,
+           <span class="hljs-string">"selectedIconPath"</span>: <span class="hljs-string">"icons/category1.png"</span>
+         &#125;,
+         &#123;
+           <span class="hljs-string">"pagePath"</span>: <span class="hljs-string">"pages/user/index"</span>,
+           <span class="hljs-string">"text"</span>: <span class="hljs-string">"我的"</span>,
+           <span class="hljs-string">"iconPath"</span>: <span class="hljs-string">"icons/me.png"</span>,
+           <span class="hljs-string">"selectedIconPath"</span>: <span class="hljs-string">"icons/me1.png"</span>
+         &#125;
+       ]
+     &#125;,</code></pre>
+</li>
+<li><p>各字段说明详见开发者文档。</p>
+</li>
+</ol>
+<h2 id="六、初始化页面样式"><a href="#六、初始化页面样式" class="headerlink" title="六、初始化页面样式"></a>六、初始化页面样式</h2><ol>
+<li><p>在app.wxss中加入如下代码</p>
+<pre><code class="hljs css"><span class="hljs-selector-tag">page</span>,<span class="hljs-selector-tag">view</span>,<span class="hljs-selector-tag">text</span>,<span class="hljs-selector-tag">swiper</span>,<span class="hljs-selector-tag">swiper-item</span>,<span class="hljs-selector-tag">image</span>,<span class="hljs-selector-tag">navigator</span>&#123;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">box-sizing</span>: border-box;
+&#125;
+
+<span class="hljs-comment">/* </span>
+<span class="hljs-comment">  主题颜色 </span>
+<span class="hljs-comment">  支持变量</span>
+<span class="hljs-comment">*/</span>
+<span class="hljs-selector-tag">page</span>&#123;
+  <span class="hljs-attribute">--themeColor</span>:<span class="hljs-number">#eb4450</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">28</span>rpx;
+&#125;</code></pre>
+</li>
+<li><p>使用主题颜色</p>
+<p>在index.wxss中加入如下代码：</p>
+<pre><code class="hljs css"><span class="hljs-comment">/* pages/index/index.wxss */</span>
+<span class="hljs-selector-tag">view</span>&#123;
+
+  <span class="hljs-comment">/* 使用主题颜色 */</span>
+
+  <span class="hljs-attribute">color</span>:<span class="hljs-built_in">var</span>(--themeColor);
+
+&#125;</code></pre>
+
+</li>
+</ol>
 
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%BB%91%E9%A9%AC%E4%BC%98%E8%B4%AD/">黑马优购</a>
+                    
+                  </div>
                 
               </div>
               
@@ -235,9 +396,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/25/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%BB%91%E9%A9%AC%E4%BC%98%E8%B4%AD%EF%BC%88%E4%B8%80%EF%BC%89/">
+                      <a href="/2020/06/28/%E6%B5%85%E6%9E%90%E5%8A%A8%E7%89%A9%E5%86%9C%E5%9C%BA/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">微信小程序黑马优购（一）</span>
+                        <span class="hidden-mobile">浅析动物农场</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -245,8 +406,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/06/16/%E6%96%B0%E5%BB%BA%E6%96%87%E6%9C%AC%E6%96%87%E6%A1%A3/">
-                        <span class="hidden-mobile">my-f</span>
+                      <a href="/2020/06/16/my-first-blog/">
+                        <span class="hidden-mobile">my-first-blog</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -387,7 +548,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "my-first-blog&nbsp;",
+        "微信小程序黑马优购（一）&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 88,
