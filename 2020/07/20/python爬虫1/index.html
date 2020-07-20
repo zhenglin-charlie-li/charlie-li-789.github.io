@@ -17,7 +17,7 @@
   <meta name="description" content="熊儿老猫的博客">
   <meta name="author" content="Zhenglin Li">
   <meta name="keywords" content="">
-  <title>mysql安装 - 熊儿老猫的博客</title>
+  <title>Python爬虫入门（一） - 熊儿老猫的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -152,8 +152,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-07-19 17:33">
-      July 19, 2020 pm
+    <time datetime="2020-07-20 21:41">
+      July 20, 2020 pm
     </time>
   </div>
 
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      686 字
+      758 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      9
        分钟
     </span>
   
@@ -213,131 +213,74 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：13 hours ago
+                  本文最后更新于：a minute ago
                 
               </p>
             
             <article class="markdown-body">
-              <h1 id="mysql-安装教程和注意事项"><a href="#mysql-安装教程和注意事项" class="headerlink" title="mysql 安装教程和注意事项"></a>mysql 安装教程和注意事项</h1><h2 id="下载MySql"><a href="#下载MySql" class="headerlink" title="下载MySql"></a>下载MySql</h2><p>官网下载地址：<a href="https://dev.mysql.com/downloads/mysql/，" target="_blank" rel="noopener">https://dev.mysql.com/downloads/mysql/，</a> 我选的第一个版本。</p>
-<p><img src="https://i.loli.net/2020/07/19/yiSjxTZ1ncPz3AH.png" srcset="/img/loading.gif" alt="image-20200719173654976"></p>
-<h2 id="解压和配置"><a href="#解压和配置" class="headerlink" title="解压和配置"></a>解压和配置</h2><p>我是直接解压到D盘，总之路径不能有中文，解压到指定文件目录。</p>
-<ol>
-<li><p>打开解压后的MySql文件在根目录下创建my.ini (mysql配置文件)。</p>
+              <h1 id="总述"><a href="#总述" class="headerlink" title="总述"></a>总述</h1><p>本来早就想学习下python爬虫了，总是找各种借口，一直拖到现在才开始系统的学习。</p>
+<p>我用的教程是中国大学MOOC上的由北京理工大学开设的Python网络爬虫与信息提取。</p>
+<p>废话不多说，直接开始。</p>
+<h1 id="1-网络爬虫之规则"><a href="#1-网络爬虫之规则" class="headerlink" title="1. 网络爬虫之规则"></a>1. 网络爬虫之规则</h1><h2 id="1-1-requests库入门"><a href="#1-1-requests库入门" class="headerlink" title="1.1 requests库入门"></a>1.1 requests库入门</h2><h3 id="1-1-1-requests库简介"><a href="#1-1-1-requests库简介" class="headerlink" title="1.1.1 requests库简介"></a>1.1.1 requests库简介</h3><ol>
+<li><p>Requests 是唯一的一个非转基因的 Python HTTP 库，人类可以安全享用。</p>
 </li>
-<li><p>新建文本文件输入以下内容,并修改文件名为my.ini</p>
+<li><p>安装     <code>pip install requests</code></p>
 </li>
-<li><p>注意里面的basedir和datadir字段要视安装位置而定</p>
+<li><p>引入    <code>import requests</code></p>
 </li>
-</ol>
-<pre><code class="hljs routeros">[mysql]
- 
-<span class="hljs-comment"># 设置mysql客户端默认字符集</span>
- 
-<span class="hljs-attribute">default-character-set</span>=utf8
- 
-[mysqld]
- 
-<span class="hljs-comment">#设置3306端口</span>
- 
-port = 3306
- 
-<span class="hljs-comment"># 设置mysql的安装目录</span>
- 
-<span class="hljs-attribute">basedir</span>=D:\mysql-8.0.21-winx64
- 
-<span class="hljs-comment"># 设置mysql数据库的数据的存放目录</span>
- 
-<span class="hljs-attribute">datadir</span>=D:\mysql-8.0.21-winx64\data
- 
-<span class="hljs-comment"># 允许最大连接数</span>
- 
-<span class="hljs-attribute">max_connections</span>=200
- 
-<span class="hljs-comment"># 服务端使用的字符集默认为8比特编码的latin1字符集</span>
- 
-<span class="hljs-attribute">character-set-server</span>=utf8
- 
-<span class="hljs-comment"># 创建新表时将使用的默认存储引擎</span>
- 
-<span class="hljs-attribute">default-storage-engine</span>=INNODB</code></pre>
-
-<ol start="4">
-<li><p>找到CMD命令提示符，右键以管理员身份运行</p>
-<p>如下图</p>
-<p><img src="https://i.loli.net/2020/07/19/beTQEgw1HdWI2GA.png" srcset="/img/loading.gif" alt=""></p>
+<li><p>7种常用方法</p>
+<p>  <code>requests.request()</code> 构造一个请求，最基础的方法<br>  <code>requests.get()</code>     获得HTML网页的主要方法，对应于HTTP的GET<br>  <code>requests.head()</code>    获得HTML网页头的主要方法，对应于HTTP的HEAD<br>  <code>requests.post()</code>    提交post请求，POST<br>  <code>requests.put()</code>     提交put请求，PUT<br>  <code>requests.patch()</code>   提交局部修改请求,PATCH<br>  <code>requests.delete()</code>  删除请求，DELETE</p>
 </li>
 </ol>
-<p>​             进入mysql子目录bin，如D: 进入D盘，cd 文件夹名 打开文件夹等操作不再赘述。</p>
-<p>​             在bin下依次输入:</p>
-<pre><code class="hljs ada">mysqld <span class="hljs-comment">--install</span></code></pre>
-
-<pre><code>(安装) </code></pre><p>​             </p>
-<pre><code class="hljs ada">mysqld <span class="hljs-comment">--initialize</span></code></pre>
-
-<pre><code>（初始化）</code></pre><p>​        </p>
-<pre><code class="hljs dos"><span class="hljs-built_in">net</span> <span class="hljs-built_in">start</span> mysql</code></pre>
-
-<p>​              （运行）</p>
-<p>如果出现“发生系统错误2”的提示，我的解决方法是：</p>
-<p>在<strong>管理员命令行窗口</strong>下，进入<strong>安装的mysql的bin</strong>目录下：</p>
-<p><strong>1.  mysql -remove</strong></p>
-<p><strong>2.  mysql -install</strong></p>
-<p><strong>3.  net start mysql</strong></p>
-<p><strong>(4. net stop mysql (关闭mysql))</strong></p>
-<h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><ol>
-<li>直接搜索环境变量进入到页面</li>
-<li>点击系统变量的Path，编辑Path。</li>
-<li>点击新建，把bin目录加入其中。</li>
-</ol>
-<p><img src="https://i.loli.net/2020/07/20/eORgKXBpbGaZ5YV.png" srcset="/img/loading.gif" alt=""></p>
-<h2 id="重设密码"><a href="#重设密码" class="headerlink" title="重设密码"></a>重设密码</h2><p>这一步花了我很长时间，是因为在my.ini文件中加入mysqld –skip-grant-tables跳过密码验证的方法在mysql8.0中已失效，使用使用以下步骤重设密码</p>
-<ol>
-<li>打开命令窗口cmd，输入命令：</li>
-</ol>
-<pre><code class="hljs arduino">net <span class="hljs-built_in">stop</span> mysql</code></pre>
-
-<p>停止MySQL服务，</p>
-<ol start="2">
-<li>开启跳过密码验证登录的MySQL服务</li>
-</ol>
-<pre><code class="hljs brainfuck"><span class="hljs-comment">mysqld</span> --<span class="hljs-comment">console</span> --<span class="hljs-comment">skip</span><span class="hljs-literal">-</span><span class="hljs-comment">grant</span><span class="hljs-literal">-</span><span class="hljs-comment">tables</span> --<span class="hljs-comment">shared</span><span class="hljs-literal">-</span><span class="hljs-comment">memory</span></code></pre>
-
-<ol start="3">
-<li>再打开一个新的cmd，无密码登录MySQL，输入登录命令：</li>
-</ol>
-<pre><code class="hljs ebnf"><span class="hljs-attribute">mysql -u root -p</span></code></pre>
-
-<ol start="4">
-<li>密码置为空，命令如下：</li>
-</ol>
-<pre><code class="hljs actionscript"><span class="hljs-keyword">use</span> mysql</code></pre>
-
-<pre><code class="hljs routeros">update<span class="hljs-built_in"> user </span><span class="hljs-builtin-name">set</span> <span class="hljs-attribute">authentication_string</span>=<span class="hljs-string">''</span> where <span class="hljs-attribute">user</span>=<span class="hljs-string">'root'</span>;</code></pre>
-
 <ol start="5">
-<li>退出mysql，执行命令：</li>
-</ol>
-<pre><code class="hljs cos"><span class="hljs-keyword">quit</span></code></pre>
-
-
-
-<ol start="6">
-<li><p>关闭以-console –skip-grant-tables –shared-memory 启动的MySQL服务，</p>
+<li><p>requests库的get()方法</p>
+<p><code>r = requests.get(url)</code><br>该语句的意为构造一个向服务器请求资源的Request对象，返回的是一个包含服务器资源的Response对象，用r来接收。</p>
 </li>
-<li><p>打开命令框，输入：net start mysql 启动MySQL服务，一管理员的身份运行cmd。</p>
+<li><p>Response对象的属性</p>
+<p><code>r.ststus_code</code>           http请求的返回状态，200为成功<br><code>r.text</code>                  http响应内容的字符串形式，url对应的页面内容<br><code>r.encoding</code>              http header中猜测的编码格式<br><code>r.apparent_encoding</code>     http内容中猜测的响应内容的编码格式，备用<br><code>r.content</code>               http响应内容的二进制形式</p>
+<h3 id="1-1-2-通用代码框架"><a href="#1-1-2-通用代码框架" class="headerlink" title="1.1.2 通用代码框架"></a>1.1.2 通用代码框架</h3></li>
+<li><p>Requests库的异常</p>
+<p><code>requests.ConnectionError</code>   网络连接异常<br><code>requests.HTTPError</code>         http错误异常<br><code>requesrs.URLRequired</code>       URL缺失异常<br><code>requests,ToomanyRedirects</code>  重定向异常，超过最大重定向次数<br><code>requests.ConnectTimeOut</code>    连接远程服务器超时异常<br><code>requests,Time</code>              请求URL超时，超时异常（包括上述的整个请求过程）</p>
 </li>
-<li><p>步骤4密码已经置空，所以无密码状态登录MySQL，输入登录命令：mysql -u root -p</p>
-</li>
-<li><p>修改密码，如下图：</p>
+<li><p>通用代码框架</p>
 </li>
 </ol>
-<pre><code class="hljs routeros">ALTER<span class="hljs-built_in"> USER </span><span class="hljs-string">'root'</span>@<span class="hljs-string">'localhost'</span> IDENTIFIED BY <span class="hljs-string">'新密码'</span>;</code></pre>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> requests
 
-<ol start="10">
-<li>验证更改后密码正确登录</li>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getHTMLText</span><span class="hljs-params">(url)</span>:</span>
+    <span class="hljs-keyword">try</span>:
+        r = requests.get(url, timeout=<span class="hljs-number">30</span>)
+        r.raise_for_status()
+        r.encoding = r.apparent_encoding
+        <span class="hljs-keyword">return</span> r.text
+    <span class="hljs-keyword">except</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'超时异常'</span>
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    url = <span class="hljs-string">"https://www.baidu.com/"</span>
+    print(getHTMLText(url))</code></pre>
+
+<h3 id="HTTP协议及Requests库方法"><a href="#HTTP协议及Requests库方法" class="headerlink" title="HTTP协议及Requests库方法"></a>HTTP协议及Requests库方法</h3><ol>
+<li><p>HTTP协议</p>
+<p>HTTP协议, Hypertext Transfer Protocol, 超文本传输协议。<br>是一个基于“请求与响应”模式的、无状态的应用层协议。<br>采用URL作为定位网络资源的标识。</p>
+</li>
+<li><p>URL</p>
+<p>URL是通过HTTP协议存取资源的Internet路径，一个URL对应一个数据资源。<br>格式为：<a href="http://host[:port][path]">http://host[:port][path]</a><br>host: 合法的Internet主机域名或IP地址<br>port: 端口号，省略端口为80<br>path: 请求资源的路径</p>
+</li>
+<li><p>HTTP协议对资源的操作</p>
+</li>
 </ol>
-<p>输入quit，退出当前登录，输入登录命令：mysql -u root -p</p>
-<p>输入密码，成功登录，到此，重置密码结束。</p>
+<p>GET：发送一个请求来取得服务器上的某一资源。</p>
+<p>HEAD：HEAD和GET是一样的，区别在于HEAD不含有呈现数据，而仅仅是HTTP头信息。</p>
+<p>POST：向服务器提交数据。这个方法用途广泛，几乎目前所有的提交操作都是靠这个完成。</p>
+<p>PUT：这个方法比较少见。HTML表单也不支持这个。本质上来讲， PUT和POST极为相似，都是向服务器发送数据。</p>
+<p>PATCH：向服务器更新数据。</p>
+<p>DELETE：删除某一个资源。</p>
+<ol start="4">
+<li>HTTP协议方法与requests库方法一致。</li>
+</ol>
 
             </article>
             <hr>
@@ -348,7 +291,7 @@ port = 3306
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/mysql/">mysql</a>
+                      <a class="hover-with-bg" href="/tags/python%E7%88%AC%E8%99%AB/">python爬虫</a>
                     
                   </div>
                 
@@ -359,18 +302,12 @@ port = 3306
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/20/python%E7%88%AC%E8%99%AB1/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Python爬虫入门（一）</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/07/14/%E5%A4%A7%E4%B8%80%E5%AE%9E%E8%AE%AD/">
-                        <span class="hidden-mobile">大一实训</span>
+                      <a href="/2020/07/19/mysql%E5%AE%89%E8%A3%85/">
+                        <span class="hidden-mobile">mysql安装</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -511,7 +448,7 @@ port = 3306
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "mysql安装&nbsp;",
+        "Python爬虫入门（一）&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 88,

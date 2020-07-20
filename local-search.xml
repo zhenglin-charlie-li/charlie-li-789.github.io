@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>Python爬虫入门（一）</title>
+    <link href="/2020/07/20/python%E7%88%AC%E8%99%AB1/"/>
+    <url>/2020/07/20/python%E7%88%AC%E8%99%AB1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="总述"><a href="#总述" class="headerlink" title="总述"></a>总述</h1><p>本来早就想学习下python爬虫了，总是找各种借口，一直拖到现在才开始系统的学习。</p><p>我用的教程是中国大学MOOC上的由北京理工大学开设的Python网络爬虫与信息提取。</p><p>废话不多说，直接开始。</p><h1 id="1-网络爬虫之规则"><a href="#1-网络爬虫之规则" class="headerlink" title="1. 网络爬虫之规则"></a>1. 网络爬虫之规则</h1><h2 id="1-1-requests库入门"><a href="#1-1-requests库入门" class="headerlink" title="1.1 requests库入门"></a>1.1 requests库入门</h2><h3 id="1-1-1-requests库简介"><a href="#1-1-1-requests库简介" class="headerlink" title="1.1.1 requests库简介"></a>1.1.1 requests库简介</h3><ol><li><p>Requests 是唯一的一个非转基因的 Python HTTP 库，人类可以安全享用。</p></li><li><p>安装     <code>pip install requests</code></p></li><li><p>引入    <code>import requests</code></p></li><li><p>7种常用方法</p><p>  <code>requests.request()</code> 构造一个请求，最基础的方法<br>  <code>requests.get()</code>     获得HTML网页的主要方法，对应于HTTP的GET<br>  <code>requests.head()</code>    获得HTML网页头的主要方法，对应于HTTP的HEAD<br>  <code>requests.post()</code>    提交post请求，POST<br>  <code>requests.put()</code>     提交put请求，PUT<br>  <code>requests.patch()</code>   提交局部修改请求,PATCH<br>  <code>requests.delete()</code>  删除请求，DELETE</p></li></ol><ol start="5"><li><p>requests库的get()方法</p><p><code>r = requests.get(url)</code><br>该语句的意为构造一个向服务器请求资源的Request对象，返回的是一个包含服务器资源的Response对象，用r来接收。</p></li><li><p>Response对象的属性</p><p><code>r.ststus_code</code>           http请求的返回状态，200为成功<br><code>r.text</code>                  http响应内容的字符串形式，url对应的页面内容<br><code>r.encoding</code>              http header中猜测的编码格式<br><code>r.apparent_encoding</code>     http内容中猜测的响应内容的编码格式，备用<br><code>r.content</code>               http响应内容的二进制形式</p><h3 id="1-1-2-通用代码框架"><a href="#1-1-2-通用代码框架" class="headerlink" title="1.1.2 通用代码框架"></a>1.1.2 通用代码框架</h3></li><li><p>Requests库的异常</p><p><code>requests.ConnectionError</code>   网络连接异常<br><code>requests.HTTPError</code>         http错误异常<br><code>requesrs.URLRequired</code>       URL缺失异常<br><code>requests,ToomanyRedirects</code>  重定向异常，超过最大重定向次数<br><code>requests.ConnectTimeOut</code>    连接远程服务器超时异常<br><code>requests,Time</code>              请求URL超时，超时异常（包括上述的整个请求过程）</p></li><li><p>通用代码框架</p></li></ol><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getHTMLText</span><span class="hljs-params">(url)</span>:</span>    <span class="hljs-keyword">try</span>:        r = requests.get(url, timeout=<span class="hljs-number">30</span>)        r.raise_for_status()        r.encoding = r.apparent_encoding        <span class="hljs-keyword">return</span> r.text    <span class="hljs-keyword">except</span>:        <span class="hljs-keyword">return</span> <span class="hljs-string">'超时异常'</span><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:    url = <span class="hljs-string">"https://www.baidu.com/"</span>    print(getHTMLText(url))</code></pre><h3 id="HTTP协议及Requests库方法"><a href="#HTTP协议及Requests库方法" class="headerlink" title="HTTP协议及Requests库方法"></a>HTTP协议及Requests库方法</h3><ol><li><p>HTTP协议</p><p>HTTP协议, Hypertext Transfer Protocol, 超文本传输协议。<br>是一个基于“请求与响应”模式的、无状态的应用层协议。<br>采用URL作为定位网络资源的标识。</p></li><li><p>URL</p><p>URL是通过HTTP协议存取资源的Internet路径，一个URL对应一个数据资源。<br>格式为：<a href="http://host[:port][path]">http://host[:port][path]</a><br>host: 合法的Internet主机域名或IP地址<br>port: 端口号，省略端口为80<br>path: 请求资源的路径</p></li><li><p>HTTP协议对资源的操作</p></li></ol><p>GET：发送一个请求来取得服务器上的某一资源。</p><p>HEAD：HEAD和GET是一样的，区别在于HEAD不含有呈现数据，而仅仅是HTTP头信息。</p><p>POST：向服务器提交数据。这个方法用途广泛，几乎目前所有的提交操作都是靠这个完成。</p><p>PUT：这个方法比较少见。HTML表单也不支持这个。本质上来讲， PUT和POST极为相似，都是向服务器发送数据。</p><p>PATCH：向服务器更新数据。</p><p>DELETE：删除某一个资源。</p><ol start="4"><li>HTTP协议方法与requests库方法一致。</li></ol>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>python爬虫</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>mysql安装</title>
     <link href="/2020/07/19/mysql%E5%AE%89%E8%A3%85/"/>
     <url>/2020/07/19/mysql%E5%AE%89%E8%A3%85/</url>
