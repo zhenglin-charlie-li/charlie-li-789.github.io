@@ -17,7 +17,7 @@
   <meta name="description" content="熊儿老猫的博客">
   <meta name="author" content="Zhenglin Li">
   <meta name="keywords" content="">
-  <title>页面走丢啦~ - 熊儿老猫的博客</title>
+  <title>标签 - 熊儿老猫的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -42,7 +42,7 @@
 
 
 <body>
-  <header style="height: 85vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -130,7 +130,7 @@
 </nav>
 
     <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('https://images.unsplash.com/photo-1592035659284-3b39971c1107?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -150,16 +150,24 @@
 
   <main>
     
-      
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
 
-<script>
-  function redirect() {
-    location.href = "/";
-  }
+<div class="text-center tagcloud">
+  <a href="/tags/mysql/" style="font-size: 15px; color: #bbe">mysql</a> <a href="/tags/python%E7%88%AC%E8%99%AB/" style="font-size: 15px; color: #bbe">python爬虫</a> <a href="/tags/%E5%AE%9E%E8%AE%AD/" style="font-size: 15px; color: #bbe">实训</a> <a href="/tags/%E8%AF%BB%E4%B9%A6/" style="font-size: 15px; color: #bbe">读书</a> <a href="/tags/%E9%BB%91%E9%A9%AC%E4%BC%98%E8%B4%AD/" style="font-size: 15px; color: #bbe">黑马优购</a>
+</div>
 
-  //setTimeout(redirect, 3000)
-</script>
-
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     
   </main>
 
@@ -246,7 +254,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Page not found&nbsp;",
+        "标签&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 88,
