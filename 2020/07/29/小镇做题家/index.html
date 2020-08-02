@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="熊儿老猫的博客">
+  <meta name="author" content="Zhenglin Li">
+  <meta name="keywords" content="">
+  <title>小镇做题家 - 熊儿老猫的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>熊儿老猫的Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://farm1.staticflickr.com/700/21371649841_2d54662091_z.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-29 20:07">
+      2020年7月29日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：几秒前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="小镇做题家没错，错的是世界"><a href="#小镇做题家没错，错的是世界" class="headerlink" title="小镇做题家没错，错的是世界"></a>小镇做题家没错，错的是世界</h1><p><img src="http://p1-tt.byteimg.com/large/pgc-image/da492e82dfa54a0db0694e9fd72738ed?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p><strong>1</strong></p>
+<p>最近小镇做题家这个词冒了出来，作为后浪的反面。</p>
+<p>小镇做题家代表了那些出身贫苦，读书努力，依靠高考进入了一所比较好的大学，有一个相对不错的学历，但面对社会依然单薄无力拘谨的形象。</p>
+<p>我回想自己的生活中，似乎是遇到过这些朋友的。</p>
+<p>读中学时有一个同学，努力上进，埋头苦读，在我们翘课打球的时候，他在做题，在我们网吧CS五黑的时候，他在做题，在我们唱K宵夜吹牛皮的时候，他还在写题，他是那种典型的别人家的孩子，老师的最爱，校长的希望。</p>
+<p>有一说一，我是校长我也喜欢人家，毕竟这是行走的KPI。</p>
+<p>人人都爱KPI。</p>
+<p><img src="http://p3-tt.byteimg.com/large/pgc-image/3d8ffe037c294ecb97e94a5a972f2616?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p>工作之后，我遇到过这么一个实习生，说是实习生，但是看起来似乎比我还要大，半路从生物转行计算机，某985毕业，浑身上下带着一股“老实人”的气息，正儿八经的老实人。</p>
+<p>我说的不是牛顿老师。</p>
+<p>只是这人虽然老实，但老实的并不可爱，也不好用。</p>
+<p>脑回路异乎寻常的直，跟他沟通存在一定门槛，对于工作难以变通，同时也不知道到处去问，我不认为这是他的错误，毕竟谁也不敢说刚上班就有经验，但确实也不喜欢和他合作，因为会给我自己增加非常多的工作量。</p>
+<p>他的野心很明显，想在大城市待下来，但接人待物确实存在问题，喜欢抱怨，并且逢人就强调自己一定要留下来，所以最后尽管我给他写了转正推荐，但拒绝他来我的组，他去了别的更缺人的组，后来我离职，就断了联系。</p>
+<p>人不是坏人，也没什么坏心思，很努力，很肯付出，但有时候就是战战兢兢，不得其法。</p>
+<p>一提起小镇做题家，我第一时间就想到了他们。</p>
+<p><strong>2</strong></p>
+<p>小镇做题家是指那些村镇出生，学习优秀但因缺乏视野和资源导致生活不如意的青年，本质上是一种自嘲的称谓。</p>
+<p>但要区分清楚，不是所有小镇出身大城市工作的年轻人都叫小镇做题家。</p>
+<p>你小镇出身，大城市流水线拼手机，送外卖，剪头发，这叫入城务工青年。</p>
+<p>你小镇出身，娶/嫁了个富二代，从此衣食无忧，这叫人生赢家。</p>
+<p>你小镇出生，清北毕业，先上班后创业，门店开遍全国，纳斯达克上市，问鼎福布斯，这叫莫欺少年穷。</p>
+<p>你小镇出身，学校还行，工作正常，稳扎稳打，赚了点小钱，这叫芸芸众生。</p>
+<p><img src="http://p6-tt.byteimg.com/large/pgc-image/3d20be349fdd4d298db432ed9901827d?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p>如果你仔细观察，你可以发现，小镇做题家基本包含了所有与奋斗相关的美德。</p>
+<p>尽管经济条件一般，原生家庭物质生活匮乏导致童年见识缺失，在成长路上家庭也无法提供额外的资源和助力，在初高中时依附于“题海战术”、取得优异成绩，从而脱离农村、小镇考入一流名校进入大城市。</p>
+<p>辛苦三年早起晚睡千辛万苦从小镇刷题考上大学后，才发现来自城市的同学因为丰富的教学资源，高中悠闲度过。</p>
+<p>当他们早早的觉醒危机意识，在大学里开始制定学籍计划，希望复刻自己在高中时的成功时，但发现自己思维、眼界、见识都远弱于他人。</p>
+<p>而因为教育资源的落后，以及家庭资源的局限，自己既没有同学那样悠闲的生活，除了纸面上的学习成绩之外，音乐、才艺、运动甚至连人际交往等各类技能都是欠缺的。</p>
+<p>别人的四年叫青春，他们的四年叫大学。</p>
+<p>这其实并不好笑。</p>
+<p><strong>3</strong></p>
+<p>小镇做题家往往入学即巅峰，然后就是被各种暴打，尤其是在面对就业时，会发现自己前四年积累的那些证书，那些学分对面试、工作没有想象中的给力。</p>
+<p>最后企业选了你那个大二就在家人帮助开始实习，做出过好几个实操项目的同学。</p>
+<p>或者更直接一些有资源的。</p>
+<p>这不能怪企业现实，毕竟公司是要赚钱的，这年头大家都不容易，很多老板其实甚至可以说是在给员工打工。</p>
+<p>不是所有人都能骗到投资人接盘的。</p>
+<p><img src="http://p6-tt.byteimg.com/large/pgc-image/8251aec8f0384b4f801d109dc57cc514?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p>工作之后，好不容易留在了大城市，一线行业。</p>
+<p>但工作不上不下，既比不过那些资源型同学，也比不过本地城市中产。</p>
+<p>既没有六个钱包给他助力，也没有开公司的父母等着他回家继承家产。</p>
+<p>做题家们逐渐开始发现自己面临的尴尬，有的过了很久才发现自己选错了行业，浪费数年时间；</p>
+<p>有的因为谨小慎微，做事犹犹豫豫，不够机灵常常错失良机；</p>
+<p>有的做着一份没有未来的工作，因为害怕转行的风险，日渐绝望。</p>
+<p>简单的来说，在以成绩作为唯一标准的高考前阶段，他们用成绩吊打了一众同学，当高考结束开始拼实操能力的时候，他们却开始反向被世界吊打。</p>
+<p>某种程度上，这证明了地球是圆的。</p>
+<p><img src="http://p6-tt.byteimg.com/large/pgc-image/d65766abdb7543b8960b5db1d2d186de?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p><strong>4</strong></p>
+<p><strong>小镇做题家真的是失败者吗？</strong></p>
+<p>很明显不是。</p>
+<p>刷题也是有门槛的，就像我，想刷题都刷不来，我当年不知道多羡慕他们。</p>
+<p>那小镇做题家是目光短浅吗？</p>
+<p>很明显也不是。</p>
+<p>小镇做题家其实早早认识到了人生的残酷和自身没有资源可以依靠这个事实，选择了“刷题”这样一条艰辛但高效的道路，并几年如一日的坚持下来，达成了目标。</p>
+<p>自制力强大，执行力爆表。</p>
+<p>刷题这件事情，可真不是谁都能搞定的。</p>
+<p><img src="http://p6-tt.byteimg.com/large/pgc-image/85bccde2e0f9436b90c0c48da3378757?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p>能吃苦，能认识到现实，看起来是很好，但这里面会有一个负面循环。</p>
+<p>物质的匮乏，导致他们没有条件去增长见识，大量的时间在刷题上，和刷题占用了他们太多的时间资源，导致他们没有时间自行发展其他软性技能。</p>
+<p>实现人生成功→要有好学历→没钱没资源→只能刷题→刷题导致思维僵化→成为做题家→做题家难以成功。</p>
+<p>形成了一个逻辑上的死循环。</p>
+<p>出生于农村城镇，因为原生家庭物质生活匮乏，无法给做题家们带来助力。</p>
+<p>小镇做题家的名头就是这样来的。</p>
+<p>现实只能让他们刷题，不刷题没有出路，但这个社会没有给你继续刷题的机会。</p>
+<p>所以我从来不会看不起小镇做题家，因为错的不是他们，真的是这个世界。</p>
+<p><img src="http://p6-tt.byteimg.com/large/pgc-image/277a022a7876484cae83538b37fa0140?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p><strong>5</strong></p>
+<p>另外，讲道理，刷题家们的失败，是相对于城市中产而言的，相对于老家的务工青年，他们的生活条件和上升通道是要强得多。</p>
+<p>导致做题家失败的原因是资源的不足+社会化程度低，可以说是非战之罪。</p>
+<p>这种资源不光是指金钱，也指人脉、信息。</p>
+<p>比如中产家庭的父母，可以在子女报考专业的时候给一些指导意见，可以给子女介绍实习，可以帮助子女内推工作。</p>
+<p>而做题家们的父母要不就是农民，要不就是小城市打工仔，别说什么给资源，别在你报专业的时候跟你憋出一句21世纪是生物的世纪就算帮忙了。</p>
+<p><img src="http://p6-tt.byteimg.com/large/pgc-image/8cbf6f5f6de642e186e41e52a02a7dfa?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p>这是直接原因，那么根本原因是什么呢？</p>
+<p>是“信息差”。</p>
+<p>做题家们对抗人生的策略是用时间换空间。</p>
+<p>这个策略是没问题的，但问题在于，社会性的“成功”是多因素导致的，但做题家们能做的事情却是单一的。</p>
+<p>高考前成功的唯一考量因素是“成绩”，</p>
+<p>高考后最大的考量因素是“经济”，是“资源”。</p>
+<p>成绩的成功是单一的，时间只需要花在六个科目上，“经济”的成功是多因素的，你要把时间花在性价比最高的因素上。</p>
+<p>后者比前者的门槛，高了太多。</p>
+<p><img src="http://p6-tt.byteimg.com/large/pgc-image/b05239685f94453c8ed12df16e931571?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p>打个比方，企业挑选员工的条件，是找合适的人，有过相关行业实习经验，容易沟通，实操能力强；</p>
+<p>企业晋升员工的条件是有管理能力，做出过成绩，能服众。</p>
+<p>而做题家能提供的只有，学习成绩好，善于应试。</p>
+<p>企业不需要应试能力，社会也不需要应试能力，因为这些换不来金钱。</p>
+<p>而这种信息差导致的认知的偏差，就会最终导致“努力错了方向”。</p>
+<p>产生这种“我明明已经很努力了，为什么还是这么失败”的结局。</p>
+<p><img src="http://p1-tt.byteimg.com/large/pgc-image/f1399dbd1fad4683a6e8435987b548e9?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p><strong>6</strong></p>
+<p>做题家们痛苦的根源是跳出了自己的圈层，看到了更大的世界，而手头上的资源和以往的成功经验却难以支撑他们在正确的路上更进一步。</p>
+<p>俗话说，不努力还好，一努力才发现自己是个废物，这才是最痛苦的。</p>
+<p>但，小镇做题家是废物吗？</p>
+<p>当然不是。</p>
+<p>看一下小镇做题家的开局难度就知道。</p>
+<p>物资的匮乏，教育资源跟不上，必须靠堆时间刷题找补。</p>
+<p>出身地与外界接触少，很多人大学毕业后才第一次离开自己家的小镇眼界窄。</p>
+<p>面临学业、就业等人生重大抉择没人能够提供建议，帮自己避雷，容易进坑。</p>
+<p>没有家庭资源兜底，没有退路，容错极低，面临选择只能选择短期保底，致使长期失利。</p>
+<p>这四点加在一起堪称深渊开局，甚至如果婴儿有意识有的选，面对这种投胎都恨不得当场去世。</p>
+<p><img src="http://p1-tt.byteimg.com/large/pgc-image/144977d0af524f9fa649dd165d27572a?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p>但人家是怎么做的？</p>
+<p>认识到了开局难度，知道自己所处的劣势，于是早早的认准了“刷题”这样一条单调高效且成功率最高的路，忍受着孤独和无奈一路杀了上去，最后顶着一身白装跟那些满身时装的rmb玩家同台竞技。</p>
+<p>在开局两只手的情况下，靠刷题刷成了社会中上水平收入，你们别笑，按绝对比例来说大部分白领学历，收入都是社会中上水平，哪怕仅在城市中，也不拖后腿。</p>
+<p>尽管做题家们经常自嘲自己被家境、社会环境、生存压力压垮，努力半生无所作为。</p>
+<p>但从绝对比例来说，小镇做题家依然是人生中的强者。</p>
+<p>强者是什么？</p>
+<p>从绝对意义来说，是强于大多数人，从相对意义来说，是强于昨天的自己。</p>
+<p>无论是哪一点，他们都做到了。</p>
+<p>尤其是考虑到他们的起点，更是值得尊敬。</p>
+<p><img src="http://p6-tt.byteimg.com/large/pgc-image/773332dc12fd47bb9f2909980bc6a159?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p><strong>7</strong></p>
+<p>在小镇做题家这个话题底下，我看到一句话是我很讨厌的。</p>
+<p>“同样出身小镇，有的人依然对知识抱有无功利的兴趣，有的人则完全只把读书当成敲门砖。”</p>
+<p>对小镇做题家极尽鄙夷。</p>
+<p>这是一句完全正确的废话，是“何不食肉糜”的现代版本。</p>
+<p>读书如果不是作为敲门砖，那么世界上99%的人不会去读书。</p>
+<p>读书就是不如王者荣耀有趣，这很正常。</p>
+<p><img src="http://p1-tt.byteimg.com/large/pgc-image/49083ade1e074fe29ce633ceb17ff9f7?from=pc" srcset="/img/loading.gif" alt="小镇做题家没错，错的是世界"></p>
+<p>确实承认，书籍文化有文化传承、探索知识的作用，但在社层面上的意义在于给社会输出一批具有良好学历水平和工作能力的专向人才。</p>
+<p>对个人的意义在于让自己拥有获得工作，获得更好生活的能力。</p>
+<p>对知识抱有兴趣的完全可以自己自学，或者向着专业领域冲就行了，完全不冲突。</p>
+<p>更何况，面对一个缺乏资源独自战斗，只是为了获得跟后浪们同台竞技的年轻人，你好意思跟他说，你不要那么功利？</p>
+<p>功利有错吗？功利没错，功利是他们获得更好生活的唯一方式，功利是他们对抗这个世界的唯一方式。</p>
+<p>在你们指责别人功利前，请别忘了有许多人光是活着就已经拼尽了全力。</p>
+<p>有人耗费整个青春，只是为了证明他不比你差。</p>
+<p>谁喜欢功利的世界呢，但很多时候他们没的选。</p>
+<p>其实，我们也没得选。</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/07/20/python%E7%88%AC%E8%99%AB1/">
+                        <span class="hidden-mobile">Python爬虫入门（一）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "小镇做题家&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 88,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"position":"right","width":150,"height":300,"hOffset":20,"vOffset":-90},"mobile":{"show":true,"scale":1},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body>
+</html>
