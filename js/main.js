@@ -182,7 +182,7 @@ const sidebarFn = () => {
       closeMobileSidebar('toc')
     } else {
       e.preventDefault()
-      scrollToDest(decodeURI($(this).attr('href')))
+      scrollToDest($(this).attr('href'))
     }
   })
 }
@@ -464,7 +464,7 @@ const tocFn = function () {
   // find head position & add active class
   // DOM Hierarchy:
   // ol.toc > (li.toc-item, ...)
-  // li.toc-item > (a.toc-link, ol.toc-2child > (li.toc-item, ...))
+  // li.toc-item > (a.toc-link, ol.toc-child > (li.toc-item, ...))
   const findHeadPosition = function (top) {
     // assume that we are not in the post page if no TOC link be found,
     // thus no need to update the status
@@ -477,7 +477,7 @@ const tocFn = function () {
     list.each(function () {
       const head = $(this)
       if (top > head.offset().top - 25) {
-        currentId = '#' + encodeURI($(this).attr('id'))
+        currentId = '#' + $(this).attr('id')
       }
     })
 
@@ -602,10 +602,10 @@ const clickFnOfSubMenu = function () {
 /**
  * 複製時加上版權信息
  */
-const addCopyright = () => {
+const addCopyright = function () {
   const copyright = GLOBAL_CONFIG.copyright
-  document.body.oncopy = (e) => {
-    e.preventDefault()
+  document.body.oncopy = function (event) {
+    event.preventDefault()
     let textFont; const copyFont = window.getSelection(0).toString()
     if (copyFont.length > copyright.limitCount) {
       textFont = copyFont + '\n' + '\n' + '\n' +
@@ -616,9 +616,10 @@ const addCopyright = () => {
     } else {
       textFont = copyFont
     }
-    if (e.clipboardData) {
-      return e.clipboardData.setData('text', textFont)
+    if (event.clipboardData) {
+      return event.clipboardData.setData('text', textFont)
     } else {
+      // 兼容IE
       return window.clipboardData.setData('text', textFont)
     }
   }
@@ -627,7 +628,7 @@ const addCopyright = () => {
 /**
  * 網頁運行時間
  */
-const addRuntime = () => {
+const addRuntime = function () {
   const $runtimeCount = $('#webinfo-runtime-count')
   if ($runtimeCount.length) {
     const publishDate = $runtimeCount.attr('publish_date')
@@ -648,6 +649,7 @@ const addTableWrap = function () {
 /**
  * 百度推送
  */
+
 const pushToBaidu = () => {
   const bp = document.createElement('script')
   const curProtocol = window.location.protocol.split(':')[0]
@@ -664,6 +666,7 @@ const pushToBaidu = () => {
 /**
  * tag-hide
  */
+
 const clickFnOfTagHide = function () {
   const $hideInline = $('.hide-button')
   if ($hideInline.length) {
@@ -708,7 +711,7 @@ const toggleCardCategory = function () {
     e.preventDefault()
     const $this = $(this)
     $this.toggleClass('expand')
-    $this.parents('.parent').next().toggle()
+    $this.parents('.parent').next().toggle(500)
   })
 }
 
