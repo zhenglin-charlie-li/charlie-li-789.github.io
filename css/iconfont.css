@@ -27,11 +27,12 @@
 
 .icon-jinritoutiao:before {
   content: "\e6a4";
+  font-size: 19px;
 }
 
 .icon-jianshu:before {
   content: "\e602";
-  font-size: 24px;
+  font-size: 28px;
 }
 
 .icon-csdn:before {
