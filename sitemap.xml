@@ -144,7 +144,7 @@
 
   <url>
     <loc>http://9pshr3.coding-pages.com/</loc>
-    <lastmod>2020-08-14</lastmod>
+    <lastmod>2020-08-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -152,35 +152,35 @@
   
   <url>
     <loc>http://9pshr3.coding-pages.com/tags/python%E7%88%AC%E8%99%AB/</loc>
-    <lastmod>2020-08-14</lastmod>
+    <lastmod>2020-08-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://9pshr3.coding-pages.com/tags/mysql/</loc>
-    <lastmod>2020-08-14</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://9pshr3.coding-pages.com/tags/%E9%BB%91%E9%A9%AC%E4%BC%98%E8%B4%AD/</loc>
-    <lastmod>2020-08-14</lastmod>
+    <lastmod>2020-08-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://9pshr3.coding-pages.com/tags/%E5%AE%9E%E8%AE%AD/</loc>
-    <lastmod>2020-08-14</lastmod>
+    <lastmod>2020-08-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://9pshr3.coding-pages.com/tags/%E9%BB%91%E9%A9%AC%E4%BC%98%E8%B4%AD/</loc>
+    <lastmod>2020-08-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://9pshr3.coding-pages.com/tags/%E8%AF%BB%E4%B9%A6/</loc>
-    <lastmod>2020-08-14</lastmod>
+    <lastmod>2020-08-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -189,7 +189,7 @@
   
   <url>
     <loc>http://9pshr3.coding-pages.com/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
-    <lastmod>2020-08-14</lastmod>
+    <lastmod>2020-08-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
