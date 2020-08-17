@@ -25,6 +25,7 @@
 
 .icon-weibo:before {
   content: "\e63b";
+  size: 17px;
 }
 
 .icon-jinritoutiao:before {
@@ -33,6 +34,7 @@
 
 .icon-jianshu:before {
   content: "\e602";
+  size: 19px;
 }
 
 .icon-csdn:before {
@@ -41,5 +43,6 @@
 
 .icon-bokeyuan:before {
   content: "\e6b1";
+  size: 17px;
 }
 

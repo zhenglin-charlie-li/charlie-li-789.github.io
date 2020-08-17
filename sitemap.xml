@@ -214,13 +214,6 @@
   </url>
   
   <url>
-    <loc>http://9pshr3.coding-pages.com/tags/%E6%B8%B8%E6%88%8F/</loc>
-    <lastmod>2020-08-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://9pshr3.coding-pages.com/tags/%E5%AE%9E%E8%AE%AD/</loc>
     <lastmod>2020-08-17</lastmod>
     <changefreq>daily</changefreq>
@@ -236,6 +229,13 @@
   
   <url>
     <loc>http://9pshr3.coding-pages.com/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BA%91%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2020-08-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://9pshr3.coding-pages.com/tags/%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2020-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -286,13 +286,6 @@
   </url>
   
   <url>
-    <loc>http://9pshr3.coding-pages.com/categories/%E6%B8%B8%E6%88%8F/</loc>
-    <lastmod>2020-08-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://9pshr3.coding-pages.com/categories/%E5%AE%9E%E8%AE%AD/</loc>
     <lastmod>2020-08-17</lastmod>
     <changefreq>daily</changefreq>
@@ -308,6 +301,13 @@
   
   <url>
     <loc>http://9pshr3.coding-pages.com/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
+    <lastmod>2020-08-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://9pshr3.coding-pages.com/categories/%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2020-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
