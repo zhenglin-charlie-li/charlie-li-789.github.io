@@ -249,6 +249,13 @@
   </url>
   
   <url>
+    <loc>http://9pshr3.coding-pages.com/tags/%E6%B8%B8%E6%88%8F/</loc>
+    <lastmod>2020-09-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://9pshr3.coding-pages.com/tags/git/</loc>
     <lastmod>2020-09-12</lastmod>
     <changefreq>daily</changefreq>
@@ -257,13 +264,6 @@
   
   <url>
     <loc>http://9pshr3.coding-pages.com/tags/github/</loc>
-    <lastmod>2020-09-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://9pshr3.coding-pages.com/tags/%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2020-09-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -335,14 +335,14 @@
   </url>
   
   <url>
-    <loc>http://9pshr3.coding-pages.com/categories/git/</loc>
+    <loc>http://9pshr3.coding-pages.com/categories/%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2020-09-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://9pshr3.coding-pages.com/categories/%E6%B8%B8%E6%88%8F/</loc>
+    <loc>http://9pshr3.coding-pages.com/categories/git/</loc>
     <lastmod>2020-09-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
