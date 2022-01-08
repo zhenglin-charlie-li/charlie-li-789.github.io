@@ -1,0 +1,676 @@
+<!DOCTYPE html><html lang="en-US" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Redis设计与实现 读书笔记（一）数据结构与对象 | ZhengLin Li's blog</title><meta name="description" content="简单动态字符串 background  SDS，simple dynamic string SDS是Redis的默认字符串表示 还可以作为缓冲区，AOF buffer，输入缓冲区 C字符串只会用作字符串字面量用在无需对字符串值进行修改的地方   实现  struct sdshdr{ int len; int free; char buf[];}    与C字符串的区别  获取长度 O(1)  杜绝"><meta name="author" content="Zhenglin Li"><meta name="copyright" content="Zhenglin Li"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://9pshr3.coding-pages.com/2021/11/21/Redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><meta property="og:type" content="article"><meta property="og:title" content="Redis设计与实现 读书笔记（一）数据结构与对象"><meta property="og:url" content="http://9pshr3.coding-pages.com/2021/11/21/Redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1/"><meta property="og:site_name" content="ZhengLin Li's blog"><meta property="og:description" content="简单动态字符串 background  SDS，simple dynamic string SDS是Redis的默认字符串表示 还可以作为缓冲区，AOF buffer，输入缓冲区 C字符串只会用作字符串字面量用在无需对字符串值进行修改的地方   实现  struct sdshdr{ int len; int free; char buf[];}    与C字符串的区别  获取长度 O(1)  杜绝"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/useblue/ucdn/imgs/bp-7.webp"><meta property="article:published_time" content="2021-11-21T03:46:24.000Z"><meta property="article:modified_time" content="2022-01-08T04:17:43.930Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'true'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0773dcadd0397be86eb74da114bd1757";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime_unit: 'days',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: true,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isanchor: false    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2022-01-08 12:17:43'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="/css/iconfont.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">Categories</div><div class="length_num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简单动态字符串"><span class="toc-number">1.</span> <span class="toc-text">简单动态字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#embstr"><span class="toc-number">2.</span> <span class="toc-text">embstr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#链表"><span class="toc-number">3.</span> <span class="toc-text">链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字典"><span class="toc-number">4.</span> <span class="toc-text">字典</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跳跃表"><span class="toc-number">5.</span> <span class="toc-text">跳跃表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#整数集合"><span class="toc-number">6.</span> <span class="toc-text">整数集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#压缩列表"><span class="toc-number">7.</span> <span class="toc-text">压缩列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象"><span class="toc-number">8.</span> <span class="toc-text">对象</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/useblue/ucdn/imgs/bp-7.webp)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">ZhengLin Li's blog</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书籍</span></a></li><li><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Redis设计与实现 读书笔记（一）数据结构与对象</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-11-21T03:46:24.000Z" title="Created 2021-11-21 11:46:24">2021-11-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-01-08T04:17:43.930Z" title="Updated 2022-01-08 12:17:43">2022-01-08</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>8min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h3 id="简单动态字符串"><a href="#简单动态字符串" class="headerlink" title="简单动态字符串"></a>简单动态字符串</h3><ul>
+<li><p>background</p>
+<ul>
+<li>SDS，simple dynamic string</li>
+<li>SDS是Redis的默认字符串表示</li>
+<li>还可以作为缓冲区，AOF buffer，输入缓冲区</li>
+<li>C字符串只会用作字符串字面量用在无需对字符串值进行修改的地方</li>
+</ul>
+</li>
+<li><p>实现</p>
+<ul>
+<li><p>struct sdshdr{</p>
+<pre><code>int len;
+int free;
+char buf[];</code></pre><p>}</p>
+</li>
+</ul>
+</li>
+<li><p>与C字符串的区别</p>
+<ul>
+<li><p>获取长度 O(1)</p>
+</li>
+<li><p>杜绝缓冲区溢出</p>
+<ul>
+<li>C串的strcat要求desc后面为src预留了足够的memory，否则缓冲区溢出</li>
+<li>SDS的sdscat会先检查free，不满足的话拓展，然后再实际的修改操作</li>
+</ul>
+</li>
+<li><p>减少内存重分配次数</p>
+<ul>
+<li><p>通过未使用空间实现了空间预分配和惰性空间释放</p>
+</li>
+<li><p>空间预分配</p>
+<ul>
+<li>进行修改之后，len &lt; 1 MB，分配使得 free = len</li>
+<li>进行修改之后，len &gt;= 1 MB，分配 free = 1 MB</li>
+</ul>
+</li>
+<li><p>惰性空间释放</p>
+<ul>
+<li>并不立即使用内存重分配来回收缩短后多出来的字节，而是用free熟悉记录下来</li>
+<li>SDS提供API真正释放未使用空间</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>二进制安全</p>
+<ul>
+<li>C串只能保存文本，不能保存二进制数据，因为其以\0判断结尾</li>
+<li>SDS的 buf 称为字节数组，用len判断结尾</li>
+<li>redis用SDS不是保存字符，而是保存二进制数据</li>
+<li>既可以保存文本，又可以保存二进制数据</li>
+</ul>
+</li>
+<li><p>兼容部分C字符串函数</p>
+<ul>
+<li>使用\0结尾以适配</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="embstr"><a href="#embstr" class="headerlink" title="embstr"></a>embstr</h3><ul>
+<li><p>专门用来保存短字符串的一种优化编码方式</p>
+</li>
+<li><p>embstr编码与raw编码对应的字符串对象，都是由对象结构(redisObject)和数据结构(sdshdr)组成的</p>
+</li>
+<li><p>执行命令时产生的效果是相同的的</p>
+</li>
+<li><p>两者的区别</p>
+<ul>
+<li><p>分配/释放 空间的两次 / 一次</p>
+<p>用raw编码的字符串对象会调用两次内存分配函数来分别创建redisObject结构和sdshdr结构，而embstr编码则通过调用一次内存分配函数来分配一块连续的空间，空间中一次包含redisObject和sdshr两个结构</p>
+</li>
+<li><p>空间的 不连续 / 连续</p>
+<p>embstr编码的对象比raw编码的对象能够更好的利用缓存带来的优势</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><ul>
+<li><p>支持的功能</p>
+<ul>
+<li>列表键，发布与订阅，慢查询，监视器，保存多个客户端的状态信息，构建客户端输出缓冲区</li>
+</ul>
+</li>
+<li><p>实现</p>
+<ul>
+<li><p>typedef struct listNode{</p>
+<pre><code>struct listNode *prev;
+struct listNode *next;
+void *value;</code></pre><p>}listNode;</p>
+<p>typedef struct list{</p>
+<pre><code>listNode *head;
+listNode *tail;
+unsigned int len;
+void *(*dup)(void *ptr);
+void *(*free)(void *ptr);
+void *(*match)(void *ptr, void *key);</code></pre><p>}list;</p>
+</li>
+</ul>
+</li>
+<li><p>特性</p>
+<ul>
+<li><p>双向、无环</p>
+</li>
+<li><p>带表头和表尾</p>
+</li>
+<li><p>带长度计数器</p>
+</li>
+<li><p>多态</p>
+<ul>
+<li>通过为list设置类型特定的函数，可以使用list保存各种不同类型的值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><ul>
+<li><p>支持的功能</p>
+<ul>
+<li>Redis数据库，哈希键</li>
+</ul>
+</li>
+<li><p>底层实现</p>
+<ul>
+<li>字典的底层实现是哈希表</li>
+<li>一个哈希表有多个哈希表节点，每个哈希表节点保存来字典中的一个键值对</li>
+</ul>
+</li>
+<li><p>实现</p>
+<ul>
+<li><p>哈希表</p>
+<ul>
+<li><p>dict.h/dictht<br>typedef struct dictht{</p>
+<pre><code>// 哈希表数组
+dicEntry **table;
+// 哈希表数组的大小
+unsigned long size;
+// 掩码，用于计算数组索引，= size - 1
+unsigned long sizemask;
+// 已有节点的数量
+unsigned long used;</code></pre><p>}dictht;</p>
+</li>
+</ul>
+</li>
+<li><p>哈希表节点</p>
+<ul>
+<li><p>typedef struct dictEntry{</p>
+<pre><code>// 键
+void *key;
+// 值
+union{
+    void *val;
+    uint64_tu64;
+    int64_ts64;    
+}v;
+// 形成链表
+struct dictEntry *next;</code></pre><p>}dictEntry;</p>
+</li>
+</ul>
+</li>
+<li><p>字典</p>
+<ul>
+<li><p>typedef struct dict{</p>
+<pre><code>// 类型特定函数
+dictType *type;
+// 私有数据
+void *privdata;
+// 哈希表
+dictht ht[2];
+// rehash索引
+int trehashinx;</code></pre><p>}dict;</p>
+</li>
+<li><p>type和privdata是针对不同类型的键值对创建多态字典而设置的</p>
+</li>
+<li><p>type是dictType类型的指针，dictType保存了一系列用于操作特定类型键值对的函数</p>
+</li>
+<li><p>privdata保存了type的可选参数</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>哈希算法</p>
+<ul>
+<li>hash = dict-&gt;type-&gt;hashFunction(key);</li>
+<li>index = hash &amp; dict-&gt;ht[x].sizemask;</li>
+<li>使用链地址法解决键冲突，总是将新节点添加到表头</li>
+</ul>
+</li>
+<li><p>rehash</p>
+<ul>
+<li><p>为ht[1]分配空间</p>
+<ul>
+<li><p>拓展</p>
+<ul>
+<li>新大小 = 大于等于ht[0].used * 2的最小的2的n次方</li>
+</ul>
+</li>
+<li><p>收缩</p>
+<ul>
+<li>新大小 = 大于等于ht[0].used的最小的2的n次方</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>将ht[0]中所有键值对rehash到ht[1]上</p>
+<ul>
+<li>rehash = 重新计算哈希值和索引值</li>
+</ul>
+</li>
+<li><p>ht[1]设置为ht[0]，ht[1]创建一个空白哈希表</p>
+</li>
+</ul>
+</li>
+<li><p>拓展与收缩</p>
+<ul>
+<li><p>负载因子 load factor</p>
+<ul>
+<li>used / size</li>
+</ul>
+</li>
+<li><p>拓展</p>
+<ul>
+<li>取决于Redis服务器是否在BGSAVE或BGREWRITEAOF</li>
+<li>分界线为 1 和 5</li>
+<li>在上述两命令执行过程中，Redis需要创建子进程，OS采用写时复制，避免不必要的内存写入，节约内存</li>
+</ul>
+</li>
+<li><p>收缩</p>
+<ul>
+<li>分界线为0.1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>渐进式rehash</p>
+<ul>
+<li><p>流程</p>
+<ul>
+<li>分多次，渐进式地慢慢地rehash</li>
+<li>为ht[1]分配空间，同时持有ht[0]和ht[1]</li>
+<li>维护索引计数变量rehashidx，置0，表示rehash正式开始</li>
+<li>rehash期间，对字典对每次增删改查都会使ht[0]在rehashidx所有键值对rehash到ht[1]，rehashidx++</li>
+<li>随着字典操作的不断进行，所有键值对都会被rehash，rehashidx=-1，rehash操作完成</li>
+</ul>
+</li>
+<li><p>细节</p>
+<ul>
+<li>delete，find，update会在两个表上同时进行</li>
+<li>find，先在ht[0]上找，找不到再在ht[1]上找</li>
+<li>add只会在ht[1]上进行，ht[0]键值对只增不减</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="跳跃表"><a href="#跳跃表" class="headerlink" title="跳跃表"></a>跳跃表</h3><ul>
+<li><p>backgound</p>
+<ul>
+<li>Redis只在两个地方用到了跳表：有序集合键，集群节点的内部数据结构</li>
+</ul>
+</li>
+<li><p>定义</p>
+<ul>
+<li><p>zskiplistNode</p>
+<ul>
+<li><p>typedef struct zskiplistNode{</p>
+<pre><code>// 层
+struct zskiplistLevel{
+    // 前向指针
+    struct zskiplistNode *forward;
+    // 跨度
+    unsigned int span;
+}level[];
+// 反向指针
+struct zskiplistNode *backward;
+// 分值
+double score;
+// 成员对象
+robj *obj;</code></pre><p>}zskiplistNode;</p>
+</li>
+<li><p>level</p>
+<ul>
+<li><p>forward</p>
+<ul>
+<li>访问位于表尾方向的其他节点</li>
+</ul>
+</li>
+<li><p>span</p>
+<ul>
+<li>跨度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>backward</p>
+<ul>
+<li>后退指针，从表尾向表头遍历时使用</li>
+</ul>
+</li>
+<li><p>score</p>
+<ul>
+<li>double类型，分值</li>
+</ul>
+</li>
+<li><p>obj</p>
+<ul>
+<li>节点所保存的成员对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>zskiplist</p>
+<ul>
+<li><p>typedef  struct zskiplist{</p>
+<pre><code>// 表头和表尾
+struct skiplistNode *header, *tail;
+// 表中节点的数量
+unsigned long length;
+// 最大层数
+int level;</code></pre><p>}zskiplist;</p>
+</li>
+<li><p>header</p>
+</li>
+<li><p>tail</p>
+</li>
+<li><p>level</p>
+<ul>
+<li>跳跃表内除了表头外最大的层数</li>
+</ul>
+</li>
+<li><p>length</p>
+<ul>
+<li>跳跃表除了表头包含节点的数量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>细节</p>
+<ul>
+<li><p>表头</p>
+<ul>
+<li>计算length和level时不含</li>
+<li>结构和其他节点一样，但是很多字段不会被用到</li>
+</ul>
+</li>
+<li><p>层中forward=null，则span=0</p>
+</li>
+<li><p>forward用于遍历，span用于计算排位</p>
+</li>
+<li><p>score相同时，按成员对象的字典序来排</p>
+</li>
+<li><p>各个节点保存的成员对象必须是唯一的</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="整数集合"><a href="#整数集合" class="headerlink" title="整数集合"></a>整数集合</h3><ul>
+<li><p>backgroud</p>
+<ul>
+<li>intset</li>
+<li>集合键的实现之一</li>
+<li>一个集合只含有整数且数量不多时，Redis使用整数集合实现</li>
+</ul>
+</li>
+<li><p>实现</p>
+<ul>
+<li><p>typedef struct intset{</p>
+<pre><code>// 编码方式
+uint32_t encoding;
+// 集合包含的元素数量
+uint32_t length;
+// 保存元素的数组
+int8_t contents[];</code></pre><p>}intset;</p>
+<ul>
+<li><p>encoding</p>
+<ul>
+<li>contents真正的类型取决于encoding而不是int8_t</li>
+</ul>
+</li>
+<li><p>length</p>
+<ul>
+<li>集合元素的数量 = contents数组的长度</li>
+</ul>
+</li>
+<li><p>contents[]</p>
+<ul>
+<li>整数集合的每个元素都是content数组的一个数据项，数组中不包含任何相同的数据项</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>升级</p>
+<ul>
+<li><p>何时升级：新元素添加到整数集合且类型比现有类型长</p>
+</li>
+<li><p>怎么升级：</p>
+<ul>
+<li>扩容底层数组</li>
+<li>从尾往头复制原有数组，注意有序性不变</li>
+<li>添加新元素到底层数组的头或尾（想想为什么）</li>
+</ul>
+</li>
+<li><p>好处</p>
+<ul>
+<li><p>提升灵活性</p>
+<ul>
+<li>保存int16_t / int32_t / int64_t 到集合而不担心类型错误</li>
+</ul>
+</li>
+<li><p>节约内存</p>
+<ul>
+<li>有需要时才升级</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>不能降级</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="压缩列表"><a href="#压缩列表" class="headerlink" title="压缩列表"></a>压缩列表</h3><ul>
+<li><p>background</p>
+<ul>
+<li>ziplist</li>
+<li>集合键和哈希键的底层实现</li>
+<li>列表键含少量列表项，小整数 / 短字符串时，Redis使用压缩列表</li>
+<li>哈希键少量键值对，键和值都是小整数 / 短字符串时</li>
+</ul>
+</li>
+<li><p>压缩列表的构成</p>
+<ul>
+<li>连续内存块组成短sequential数据结构</li>
+<li>一个压缩列表含任意多个节点entry</li>
+<li>每个entry保存一个字节数组或一个整数值</li>
+<li>zlbytes | zltail | zllen | entry1 | entry2 | entry3 | <strong>**</strong> | entryN | zlend</li>
+<li>zlbytes：整个压缩列表占的字节数，内存重分配或算zlend时使用</li>
+<li>zltail：zlbytes起始到表尾节点起始的字节数</li>
+<li>zllen：包含的节点数，值大于UINT16_MAX时需遍历列表才能得出节点数</li>
+<li>entryX：各个节点，长度不定</li>
+<li>zlend：标记压缩列表的末端</li>
+</ul>
+</li>
+<li><p>压缩列表节点的构成</p>
+<ul>
+<li><p>previous_entry_length | encoding | content</p>
+</li>
+<li><p>previous_entry_length：压缩列表前一个节点的长度</p>
+</li>
+<li><p>encoding：记录content属性所保存数据的类型和长度</p>
+</li>
+<li><p>content：节点的值，可以是一个字节数组或整数</p>
+<ul>
+<li>三种长度的字节数组 / 六种长度的整数值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>连续更新</p>
+</li>
+</ul>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><p>s</p>
+<ul>
+<li><p>Redis对象系统</p>
+<ul>
+<li>字符串对象</li>
+<li>列表对象</li>
+<li>哈希对象</li>
+<li>集合对象</li>
+<li>有序集合对象</li>
+</ul>
+</li>
+<li><p>定义</p>
+<ul>
+<li><p>typedef struct redisObject{</p>
+<pre><code>// 类型
+unsigned type;
+// 编码
+unsigned encoding;
+// 指向底层数据结构的指针
+void *ptr;
+// 引用计数
+int refcount;
+// 最后一次被访问的时间
+unsigned lru;</code></pre><p>}robj;</p>
+</li>
+<li><p>type</p>
+<ul>
+<li>上述五个中一个</li>
+</ul>
+</li>
+<li><p>encoding</p>
+<ul>
+<li>对象所使用的编码 = 用了什么底层数据结构作为实现？</li>
+</ul>
+</li>
+<li><p>ptr</p>
+<ul>
+<li>指向底层数据结构的指针</li>
+</ul>
+</li>
+<li><p>refcount</p>
+<ul>
+<li>引用计数，用于垃圾回收，为0时释放内存</li>
+</ul>
+</li>
+<li><p>lru</p>
+<ul>
+<li>对象最后一次被命令程序访问的时间</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>字符串对象</p>
+<ul>
+<li><p>编码类型：int，raw，embstr</p>
+</li>
+<li><p>int</p>
+<ul>
+<li>保存的是整数，整数值可以用long表示，void*转化为long来表示</li>
+</ul>
+</li>
+<li><p>raw</p>
+<ul>
+<li>保存的是字符串值，长度&gt;32字节，使用SDS编码</li>
+</ul>
+</li>
+<li><p>embstr</p>
+<ul>
+<li>保存的是字符串值，长度 &lt;= 32字节，使用embstr编码</li>
+</ul>
+</li>
+<li><p>存储能用long double表示的浮点数时会先将浮点数转换为字符串，遵循上述长度规则，执行特定操作时再转换回浮点型</p>
+</li>
+<li><p>编码的转换</p>
+<ul>
+<li><p>对象保存的不再是整数值，而是一个字符串值</p>
+<ul>
+<li>int转换为raw</li>
+</ul>
+</li>
+<li><p>存储的整数值超过long的范围</p>
+<ul>
+<li>int转换为embstr</li>
+</ul>
+</li>
+<li><p>embstr编码的字符串被修改</p>
+<p>只有int、raw编码的字符串对象可以被修改，所以embstr编码的字符串实际上是只读的</p>
+<ul>
+<li>embstr转换为raw</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><em>XMind - Trial Version</em></p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Zhenglin Li</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://9pshr3.coding-pages.com/2021/11/21/Redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1/">http://9pshr3.coding-pages.com/2021/11/21/Redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/useblue/ucdn/imgs/bp-7.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> Donate<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="../assets/wechatpay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/../assets/wechatpay.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="../assets/alipay.jpg" target="_blank"><img class="post-qr-code-img" data-lazy-src="/../assets/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/11/22/learngitbranching/"><img class="prev-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/useblue/ucdn/imgs/bp-2.webp" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">learngitbranching</div></div></a></div><div class="next-post pull-right"><a href="/2021/11/21/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"><img class="next-cover" data-lazy-src="https://cdn.jsdelivr.net/gh/useblue/ucdn/imgs/bp-6.webp" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">排序算法</div></div></a></div></nav></article></main><footer id="footer" style="background-image: url(https://cdn.jsdelivr.net/gh/useblue/ucdn/imgs/bp-7.webp)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Zhenglin Li</div><div class="framework-info"><span>Framework </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="Increase Font Size"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="Decrease Font Size"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="Switch Between Traditional Chinese And Simplified Chinese">简</button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><canvas class="fireworks"></canvas><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script defer="defer" id="ribbon_piao" mobile="false" src="/js/third-party/piao.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"position":"right","width":150,"height":300,"hOffset":20,"vOffset":-90},"mobile":{"show":true,"scale":1},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>
