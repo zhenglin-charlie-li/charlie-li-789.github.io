@@ -1,0 +1,10 @@
+---
+layout: post
+title: 'Amazona project live demo'
+date: 2023-01-20 10:31:57 +0800
+categories: jekyll update
+---
+
+[http://zhenglin-li.github.io/amazona/][amazona]
+
+[amazona]: http://zhenglin-li.github.io/amazona/
